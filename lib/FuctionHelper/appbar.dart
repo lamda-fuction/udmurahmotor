@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:udmurahmotor/pages/searchdelegate/searchdelegate.dart';
+import 'package:get/get.dart';
 
 AppBar appbar(BuildContext context, double Mediaquerywidth,
     double Mediaqueryhight, bool iscart) {
@@ -12,7 +12,8 @@ AppBar appbar(BuildContext context, double Mediaquerywidth,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           InkWell(
-            onTap: () => showSearch(context: context, delegate: Search()),
+            // onTap: () => showSearch(context: context, delegate: Search()),
+            onTap: () => Get.toNamed("/search"),
             child: Container(
               width: Mediaquerywidth / 1.4,
               height: Mediaqueryhight / 20,

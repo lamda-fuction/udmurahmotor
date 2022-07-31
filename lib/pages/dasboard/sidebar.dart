@@ -116,13 +116,14 @@ class _SidebarState extends State<Sidebar> {
                 ),
                 InkWell(
                   onTap: () {
-                    Navigator.pushNamed(context, "/Rool");
+                    Navigator.pushNamed(context, "/disetui");
                   },
                   child: Container(
                     child: ListTile(
-                      title: Text("Roluser"),
-                      leading: Icon(Icons.person_add),
-                    ),
+                        title: Text("Diserujui"),
+                        leading: Icon(
+                          Icons.check_circle,
+                        )),
                   ),
                 ),
                 InkWell(
@@ -141,8 +142,7 @@ class _SidebarState extends State<Sidebar> {
                   },
                   child: Container(
                     child: ListTile(
-                        title: Text("orderinfo"),
-                        leading: Icon(Icons.category)),
+                        title: Text("kontak"), leading: Icon(Icons.category)),
                   ),
                 ),
               ],

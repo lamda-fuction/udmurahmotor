@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../FuctionHelper/appbar.dart';
 import '../../FuctionHelper/costumlisitem.dart';
+import 'stateapihistory.dart';
 
 class History extends StatefulWidget {
   const History({Key? key}) : super(key: key);
@@ -15,37 +17,47 @@ class _HistoryState extends State<History> {
   Widget build(BuildContext context) {
     var Mediaquerywidth = MediaQuery.of(context).size.width;
     var Mediaqueryhight = MediaQuery.of(context).size.height;
+    Steapihistory instance = Get.put(Steapihistory());
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      instance.getapi();
+    });
     return Scaffold(
-        appBar: appbar(context, Mediaquerywidth, Mediaqueryhight, false),
+        // appBar: appbar(context, Mediaquerywidth, Mediaqueryhight, false),
+        appBar: AppBar(
+          backgroundColor: Colors.black,
+          title: Text("history pembelian anda"),
+        ),
         body: Container(
           margin: EdgeInsets.only(left: 11, right: 10),
-          child: ListView.builder(
-              itemCount: 5,
-              itemBuilder: (context, index) {
-                return InkWell(
-                  onTap: () {
-                    Navigator.pushNamed(context, "/Details");
-                  },
-                  child: Card(
-                    child: CustomListItem(
-                      id: 1,
-                      harga: 'Rp.2000000',
-                      viewCount: "belum di bayar",
-                      thumbnail: Container(
-                        height: 100,
-                        width: 100,
-                        decoration: const BoxDecoration(
-                            color: Colors.yellow,
-                            image: DecorationImage(
-                                image: NetworkImage(
-                                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfybR-hj66ThrTdnojUuZLwa8JnheUClyl8g&usqp=CAU"),
-                                fit: BoxFit.cover)),
-                      ),
-                      title: 'Announcing Flutter 1.0',
+          child: Obx(
+            () => (instance.isLoading.isTrue)
+                ? Center(
+                    child: CircularProgressIndicator(
+                      color: Colors.amber,
                     ),
-                  ),
-                );
-              }),
+                  )
+                : ListView.builder(
+                    itemCount: instance.lisdata.length,
+                    itemBuilder: (context, index) {
+                      // String image = d?.thumnails as String;
+                      return InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(context, "/Details");
+                          },
+                          child: Card(
+                            child: ListTile(
+                              subtitle: Text(
+                                  "Rp.${instance.lisdata[index].barang?.harga}"),
+                              title: Text(instance
+                                  .lisdata[index].barang!.namabarang
+                                  .toString()),
+                              leading: Image.network(instance
+                                  .lisdata[index].barang!.thumnails
+                                  .toString()),
+                            ),
+                          ));
+                    }),
+          ),
         ));
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:udmurahmotor/FuctionHelper/flusbar.dart';
 import 'package:udmurahmotor/pages/Profile/statevariable.dart';
+import 'package:udmurahmotor/pages/Profile/suksbayarmitrans.dart';
 import 'package:udmurahmotor/pages/Profile/urllauch.dart';
 import 'package:get/get.dart';
 
@@ -101,39 +102,28 @@ class _BayarState extends State<Bayar> {
               textAlign: TextAlign.justify,
             ),
             Container(
-              // color: Color.fromARGB(8, 0, 0, 0),
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height / 2.5,
-              child: GridView.count(
-                primary: false,
-                padding: const EdgeInsets.all(2),
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-                crossAxisCount: 2,
-                children: [
-                  cardbank(
-                    context,
-                    "BNI",
-                    Image.asset("assets/bni.png", fit: BoxFit.contain),
-                  ),
-                  cardbank(
-                    context,
-                    "BRI",
-                    Image.asset("assets/bri.png", fit: BoxFit.contain),
-                  ),
-                  cardbank(
-                    context,
-                    "BCA",
-                    Image.asset("assets/bca.png", fit: BoxFit.contain),
-                  ),
-                  cardbank(
-                    context,
-                    "PERMATA",
-                    Image.asset("assets/permata.png", fit: BoxFit.contain),
-                  ),
-                ],
-              ),
-            )
+                // color: Color.fromARGB(8, 0, 0, 0),
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height / 1.2,
+                child: ListView(
+                  children: [
+                    cardbank(
+                      context,
+                      "BNI",
+                      Image.asset("assets/bni.png", fit: BoxFit.contain),
+                    ),
+                    cardbank(
+                      context,
+                      "BRI",
+                      Image.asset("assets/bri.png", fit: BoxFit.contain),
+                    ),
+                    cardbank(
+                      context,
+                      "BCA",
+                      Image.asset("assets/bca.png", fit: BoxFit.contain),
+                    ),
+                  ],
+                ))
           ],
         ),
       ),
@@ -259,12 +249,6 @@ class _BayarState extends State<Bayar> {
                                                         SizedBox(
                                                           height: 10,
                                                         ),
-                                                        // Text("PEMBELI :"),
-                                                        // Text(
-                                                        //     " nama: Andri Wahyu Anugrah"),
-                                                        // SizedBox(
-                                                        //   height: 10,
-                                                        // ),
                                                         Text("PEMBAYARAN:"),
                                                         (bankname == "BNI")
                                                             ? Text(
@@ -352,14 +336,15 @@ class _BayarState extends State<Bayar> {
                                                                 )),
                                                           ),
                                                           InkWell(
-                                                            onTap: () {
+                                                            onTap: () async {
                                                               if (statevariable
                                                                       .checkbox ==
                                                                   true) {
                                                                 if (statevariable
                                                                         .loadingbayar ==
                                                                     false) {
-                                                                  midrans
+                                                                  //======service bayar==========
+                                                                  await midrans
                                                                       .bayarwithmitranst(
                                                                           bankname,
                                                                           widget
@@ -374,12 +359,30 @@ class _BayarState extends State<Bayar> {
                                                                               .id)
                                                                       .then(
                                                                           (value) {
-                                                                    print(
-                                                                        value);
-                                                                    //   if (value
-                                                                    //       .data!
-                                                                    //       .va_number!
-                                                                    //       .isNotEmpty) {}
+                                                                    print(value
+                                                                        .data!
+                                                                        .va_number![
+                                                                            0]
+                                                                        .va_numbers);
+                                                                    Get.to(
+                                                                        Suksesbayarwidhmitrans(
+                                                                      bank: value
+                                                                          .data!
+                                                                          .va_number![
+                                                                              0]
+                                                                          .bank,
+                                                                      tagihan: value
+                                                                          .data!
+                                                                          .gross_amount,
+                                                                      vanumber: value
+                                                                          .data!
+                                                                          .va_number![
+                                                                              0]
+                                                                          .va_numbers,
+                                                                    ));
+                                                                  }).catchError(
+                                                                          (e) {
+                                                                    print(e);
                                                                   });
                                                                 }
                                                               }
@@ -432,10 +435,11 @@ class _BayarState extends State<Bayar> {
               );
             },
             child: Container(
-                padding: EdgeInsets.all(5),
-                color: Colors.white,
-                width: MediaQuery.of(context).size.width / 4,
-                height: MediaQuery.of(context).size.width / 3,
+                // padding: EdgeInsets.all(5),
+                margin: EdgeInsets.all(15),
+                // color: Color.fromARGB(255, 221, 16, 16),
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.width / 5,
                 child: image)));
   }
 

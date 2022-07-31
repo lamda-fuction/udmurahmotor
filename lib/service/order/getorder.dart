@@ -16,7 +16,24 @@ class Getorder {
     if (get.statusCode == 200) {
       var decode = convert.jsonDecode(get.body);
       Orders orderdata = Orders.fromjson(decode);
+      orderdata.data?.forEach((v) {
+        data.add(v);
+      });
 
+      return data;
+    } else {
+      return data;
+    }
+  }
+
+  Future<List<Dataorder>> getorderbystatus(status) async {
+    List<Dataorder> data = [];
+    var url =
+        "https://endpoindud.devmee.tech/getorderbystatus?status=${status}";
+    var get = await http.get(Uri.parse(url));
+    if (get.statusCode == 200) {
+      var decode = convert.jsonDecode(get.body);
+      Orders orderdata = Orders.fromjson(decode);
       orderdata.data?.forEach((v) {
         data.add(v);
       });

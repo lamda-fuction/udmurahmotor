@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../FuctionHelper/shared/shared.dart';
 
@@ -10,6 +11,7 @@ class logout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var shared = Shared();
+
     return InkWell(
       onTap: () {
         // Navigator.pushNamed(context, "/Dasbord");
@@ -94,7 +96,8 @@ class dasboard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, "/Dasbord");
+        // Navigator.pushNamed(context, "/Dasbord");
+        Get.toNamed("/Dasbord");
       },
       child: Container(
         margin: EdgeInsets.only(left: 10),

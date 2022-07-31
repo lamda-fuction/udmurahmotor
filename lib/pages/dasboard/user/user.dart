@@ -134,7 +134,8 @@ class _UsermanageState extends State<Usermanage> {
             delegate: SliverChildBuilderDelegate((context, index) {
           return (datauserone.isEmpty)
               ? carduser(context, index, userdata, Colors.white)
-              : carduser(context, index, datauserone, Colors.indigo);
+              : carduser(context, index, datauserone,
+                  Color.fromARGB(255, 255, 255, 255));
         },
                 // childCount: userdata.length
                 childCount: (datauserone.isEmpty)
@@ -187,8 +188,8 @@ class _UsermanageState extends State<Usermanage> {
           //           borderRadius: BorderRadius.circular(10)),
           //       child: Text("toadmin")),
           // ),
-          IconButton(onPressed: () {}, icon: Icon(Icons.create)),
-          IconButton(onPressed: () {}, icon: Icon(Icons.delete_outline))
+          // IconButton(onPressed: () {}, icon: Icon(Icons.create)),
+          // IconButton(onPressed: () {}, icon: Icon(Icons.delete_outline))
         ],
       ),
     );

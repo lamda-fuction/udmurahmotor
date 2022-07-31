@@ -1,6 +1,3 @@
-import 'package:udmurahmotor/pages/Profile/wigetfuction.dart';
-import 'package:udmurahmotor/pages/searchdelegate/searchdelegate.dart';
-
 class Search {
   String? mesage;
   List<Datasearch>? datasearch;

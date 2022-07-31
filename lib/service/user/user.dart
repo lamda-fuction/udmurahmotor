@@ -32,9 +32,12 @@ class Userservice {
   Future<Getuserone> getuserby(user) async {
     var url =
         "https://endpoindud.devmee.tech/getuserbynamerusernameemail/${user}";
-    var get = await http.get(Uri.parse(url));
+    var get = await http.get(
+      Uri.parse(url),
+    );
     if (get.statusCode == 200) {
       var decode = convert.jsonDecode(get.body);
+      // print(decode);
       Getuserone dataone = Getuserone.fromjson(decode);
       return dataone;
     } else {

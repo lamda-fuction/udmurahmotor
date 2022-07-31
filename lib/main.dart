@@ -9,11 +9,13 @@ import 'package:udmurahmotor/pages/dasboard/dasbard.dart';
 import 'package:udmurahmotor/pages/dasboard/rol/rool.dart';
 import 'package:udmurahmotor/pages/kategori/kategori.dart';
 import 'package:udmurahmotor/pages/mainpage.dart';
+import 'package:udmurahmotor/pages/searchdelegate/searchPage.dart';
 
 import 'pages/Login/cekstatuslogin.dart';
 import 'pages/Profile/profile.dart';
 import 'pages/Register/register.dart';
 import 'pages/dasboard/barang/barang.dart';
+import 'pages/dasboard/barangdisetujui/orderdisetujuidasboard.dart';
 import 'pages/dasboard/kategoribarang/kategribar.dart';
 import 'pages/dasboard/komfirmasibayar/komfirmasi.dart';
 import 'pages/dasboard/orderdasboard/orderdasboard.dart';
@@ -38,16 +40,23 @@ class MyApp extends StatelessWidget {
       onGenerateRoute: (RouteSettings settings) {
         var routename = settings.name;
         switch (routename) {
+          case '/search':
+            return MaterialPageRoute(builder: (_) => SearchPage());
           case '/Login':
             return MaterialPageRoute(builder: (_) => Login());
           case '/Dasbord':
             return MaterialPageRoute(builder: (_) => Dasbord());
           case '/Orderdasboard':
             return MaterialPageRoute(builder: (_) => Orderdatboard());
+          case '/disetui':
+            return MaterialPageRoute(builder: (_) => Orderdisetujui());
           case '/profile':
             return MaterialPageRoute(builder: (_) => Profile());
           case '/Kategori':
-            return MaterialPageRoute(builder: (_) => Kategori());
+            return MaterialPageRoute(
+                builder: (_) => Kategori(
+                      params: settings.arguments,
+                    ));
           case '/Cart':
             return MaterialPageRoute(builder: (_) => Cart());
           case '/Details':

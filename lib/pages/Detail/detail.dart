@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:udmurahmotor/pages/Detail/detailstate.dart';
 import 'package:udmurahmotor/pages/Detail/widget.dart';
 
 import '../../FuctionHelper/flusbar.dart';
@@ -170,192 +172,152 @@ class _DetailState extends State<Detail> {
                 ),
                 InkWell(
                   onTap: () async {
-                    ///
-                    // var userid = await shared.getint("id");
-                    // order
-                    //     .creteorder(widget.params['id'], userid, 2, "")
-                    //     .then((value) {
-                    //   if (value['mesage'] == "create data sucsess") {
-                    //     flusbartop(context, "oder berhasil", Colors.green);
-                    //   } else if (value["mesage"] == "oder status create") {
-                    //     flusbartop(context, "lihat keranjang", Colors.green);
-                    //   } else {
-                    //     flusbartop(context, "gagal", Colors.amber);
-                    //   }
-                    // });
-
-                    //
                     showDialog(
                         context: context,
                         builder: (context) {
-                          return AlertDialog(
-                            content: Container(
-                              height: Mediaqueryhight / 3.3,
-                              child: Column(
-                                children: [
-                                  Container(
-                                    height: Mediaqueryhight / 4,
-                                    padding: EdgeInsets.all(5),
-                                    margin: EdgeInsets.only(bottom: 10),
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(5),
-                                        border:
-                                            Border.all(color: Colors.black)),
-                                    child: Form(
-                                      key: _form,
-                                      child: TextFormField(
-                                        validator: (value) {
-                                          if (value!.isEmpty) {
-                                            return "wajib di isi";
-                                          } else if (value.length < 30) {
-                                            return "isi alamat pengiriman lebih lengkap";
-                                          } else {
-                                            return null;
-                                          }
-                                        },
-                                        keyboardType: TextInputType.multiline,
-                                        textInputAction:
-                                            TextInputAction.newline,
-                                        controller: textformfieldalamat,
-                                        maxLines: 9,
-                                        minLines: 1,
-                                        decoration: InputDecoration(
-                                            border: InputBorder.none,
-                                            hintText:
-                                                "Alamat Pengiriman Barang . .",
-                                            // labelText: "Alamat",
-                                            labelStyle:
-                                                TextStyle(color: Colors.black)),
+                          final Detailstateorders statedetail =
+                              Get.put(Detailstateorders());
+                          return Obx(
+                            () => AlertDialog(
+                              content: Container(
+                                height: Mediaqueryhight / 3.3,
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      height: Mediaqueryhight / 4,
+                                      padding: EdgeInsets.all(5),
+                                      margin: EdgeInsets.only(bottom: 10),
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                          border:
+                                              Border.all(color: Colors.black)),
+                                      child: Form(
+                                        key: _form,
+                                        child: TextFormField(
+                                          validator: (value) {
+                                            if (value!.isEmpty) {
+                                              return "wajib di isi";
+                                            } else if (value.length < 30) {
+                                              return "isi alamat pengiriman lebih lengkap";
+                                            } else {
+                                              return null;
+                                            }
+                                          },
+                                          keyboardType: TextInputType.multiline,
+                                          textInputAction:
+                                              TextInputAction.newline,
+                                          controller: textformfieldalamat,
+                                          maxLines: 9,
+                                          minLines: 1,
+                                          decoration: InputDecoration(
+                                              border: InputBorder.none,
+                                              hintText:
+                                                  "Alamat Pengiriman Barang . .",
+                                              // labelText: "Alamat",
+                                              labelStyle: TextStyle(
+                                                  color: Colors.black)),
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      InkWell(
-                                        onTap: () {
-                                          Navigator.pop(context);
-                                        },
-                                        child: Container(
-                                          margin: EdgeInsets.only(right: 10),
-                                          padding: EdgeInsets.only(
-                                              top: 7,
-                                              bottom: 7,
-                                              right: 10,
-                                              left: 10),
-                                          decoration: BoxDecoration(
-                                              color: Colors.black,
-                                              borderRadius:
-                                                  BorderRadius.circular(5)),
-                                          child: Center(
-                                            child: Text(
-                                              "Batal",
-                                              style: TextStyle(
-                                                  color: Colors.white),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        InkWell(
+                                          onTap: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: Container(
+                                            margin: EdgeInsets.only(right: 10),
+                                            padding: EdgeInsets.only(
+                                                top: 7,
+                                                bottom: 7,
+                                                right: 10,
+                                                left: 10),
+                                            decoration: BoxDecoration(
+                                                color: Colors.black,
+                                                borderRadius:
+                                                    BorderRadius.circular(5)),
+                                            child: Center(
+                                              child: Text(
+                                                "Batal",
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                      InkWell(
-                                        onTap: () async {
-                                          var userid =
-                                              await shared.getint("id");
-                                          order
-                                              .creteorder(
-                                                  widget.params['id'],
-                                                  userid,
-                                                  2,
-                                                  textformfieldalamat.text)
-                                              .then((value) {
-                                            if (value['mesage'] ==
-                                                "create data sucsess") {
-                                              flusbartop(
-                                                  context,
-                                                  "oder berhasil",
-                                                  Colors.green);
-                                              Timer(Duration(seconds: 1), () {
-                                                Navigator.pushNamed(
-                                                    context, "/Mainpage",
-                                                    arguments: {
-                                                      "from": "Details"
-                                                    });
-                                              });
-                                            } else {
-                                              flusbartop(context, "gagal",
-                                                  Colors.amber);
-                                            }
-                                          });
+                                        InkWell(
+                                          onTap: () async {
+                                            statedetail.isloadingorder(true);
+                                            var userid =
+                                                await shared.getint("id");
 
-                                          ///
-                                          // showDialog(
-                                          //     context: context,
-                                          //     builder: (context) {
-                                          //       return AlertDialog(
-                                          //         // ignore: prefer_const_constructors
-                                          //         content: Container(
-                                          //           width:
-                                          //               Mediaquerywidth / 1.5,
-                                          //           height:
-                                          //               Mediaquerywidth / 1.5,
-                                          //           child: Center(
-                                          //             // ignore: prefer_const_constructors
-                                          //             child: Column(
-                                          //               mainAxisAlignment:
-                                          //                   MainAxisAlignment
-                                          //                       .center,
-                                          //               children: [
-                                          //                 CircleAvatar(
-                                          //                   backgroundColor:
-                                          //                       Colors.green,
-                                          //                   child: Icon(
-                                          //                     Icons
-                                          //                         .check_circle,
-                                          //                     color:
-                                          //                         Colors.white,
-                                          //                   ),
-                                          //                 ),
-                                          //                 Text(
-                                          //                   "Success",
-                                          //                   style: TextStyle(
-                                          //                       color: Colors
-                                          //                           .green),
-                                          //                 )
-                                          //               ],
-                                          //             ),
-                                          //           ),
-                                          //         ),
-                                          //       );
-                                          //     });
-
-                                          // Timer(Duration(seconds: 1), () {
-                                          //   Navigator.pushNamed(
-                                          //       context, "/Mainpage",
-                                          //       arguments: {"from": "Details"});
-                                          // });
-                                        },
-                                        child: Container(
-                                          padding: EdgeInsets.only(
-                                              top: 7,
-                                              bottom: 7,
-                                              right: 10,
-                                              left: 10),
-                                          decoration: BoxDecoration(
-                                              color: Colors.amber,
-                                              borderRadius:
-                                                  BorderRadius.circular(5)),
-                                          child: Center(
-                                            child: Text(
-                                              "Order Sekarang",
-                                              style: TextStyle(
-                                                  color: Colors.white),
-                                            ),
-                                          ),
+                                            order
+                                                .creteorder(
+                                                    widget.params['id'],
+                                                    userid,
+                                                    2,
+                                                    textformfieldalamat.text)
+                                                .then((value) {
+                                              if (value['mesage'] ==
+                                                  "create data sucsess") {
+                                                statedetail
+                                                    .isloadingorder(false);
+                                                flusbartop(
+                                                    context,
+                                                    "oder berhasil",
+                                                    Colors.green);
+                                                Timer(Duration(seconds: 1), () {
+                                                  Navigator.pushNamed(
+                                                      context, "/Mainpage",
+                                                      arguments: {
+                                                        "from": "Details"
+                                                      });
+                                                });
+                                              } else {
+                                                statedetail
+                                                    .isloadingorder(false);
+                                                flusbartop(
+                                                    context,
+                                                    value['mesage'],
+                                                    Colors.amber);
+                                              }
+                                            });
+                                          },
+                                          child: (statedetail
+                                                  .isloadingorder.isTrue)
+                                              ? Container(
+                                                  width: 30,
+                                                  height: 30,
+                                                  child:
+                                                      CircularProgressIndicator(
+                                                          color: Colors.amber),
+                                                )
+                                              : Container(
+                                                  padding: EdgeInsets.only(
+                                                      top: 7,
+                                                      bottom: 7,
+                                                      right: 10,
+                                                      left: 10),
+                                                  decoration: BoxDecoration(
+                                                      color: Colors.amber,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              5)),
+                                                  child: Center(
+                                                      child: Text(
+                                                    "Order Sekarang",
+                                                    style: TextStyle(
+                                                        color: Colors.white),
+                                                  )),
+                                                ),
                                         ),
-                                      ),
-                                    ],
-                                  )
-                                ],
+                                      ],
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
                           );

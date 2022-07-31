@@ -39,12 +39,12 @@ class Mutranst {
     );
 
     if (post.statusCode == 200) {
-      print(post.body);
+      // print(post.body);
       print("sukses post");
 
       // return convert.jsonDecode(post.body);
       final json = convert.jsonDecode(post.body);
-      print(json);
+      // print(json);
       return Bayarwithmitranst.frojson(json);
     } else {
       print("gagal post");

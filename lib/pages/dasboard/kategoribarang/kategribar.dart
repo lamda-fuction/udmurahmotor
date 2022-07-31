@@ -35,6 +35,7 @@ class _KategoribarangState extends State<Kategoribarang> {
     var Mediawidth = MediaQuery.of(context).size.width;
     var Mediaheight = MediaQuery.of(context).size.height;
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       drawer: Sidebar(),
       appBar: dsboardappbar(context),
       body: Container(

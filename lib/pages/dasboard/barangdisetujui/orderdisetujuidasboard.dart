@@ -1,29 +1,32 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/material.dart';
-import 'package:udmurahmotor/FuctionHelper/flusbar.dart';
 
 import '../../../model/getorderbystatus_and _userid.dart';
+import '../../../service/order/deleterder.dart';
 import '../../../service/order/getorder.dart';
 import '../../../service/order/updatestatus.dart';
 import '../appbar.dart';
 import '../sidebar.dart';
 
-class Orderdatboard extends StatefulWidget {
-  const Orderdatboard({Key? key}) : super(key: key);
+class Orderdisetujui extends StatefulWidget {
+  const Orderdisetujui({Key? key}) : super(key: key);
 
   @override
-  State<Orderdatboard> createState() => _OrderdatboardState();
+  State<Orderdisetujui> createState() => _OrderdisetujuiState();
 }
 
-class _OrderdatboardState extends State<Orderdatboard> {
+class _OrderdisetujuiState extends State<Orderdisetujui> {
   final textformfieldrool = TextEditingController();
   final order = Getorder();
   final updatestatus = Updatestatus();
+  Deleteorder deleteorder = Deleteorder();
 
   List<Dataorder> filter = [];
 
   _getfilter(code) {
     filter.clear();
-    order.getorderbystatus(2).then((value) {
+    order.getorderbystatus(3).then((value) {
       if (value.isNotEmpty) {
         for (int i = 0; i < value.length; i++) {
           final String? ordercode = value[i].ordercode;
@@ -81,24 +84,6 @@ class _OrderdatboardState extends State<Orderdatboard> {
                 InkWell(
                   onTap: () {
                     _getfilter(textformfieldrool.text);
-                    // if (textformfieldrool.text.isNotEmpty) {
-                    //   show(context);
-                    //   var createroll = kategoriservice
-                    //       .postkategori(textformfieldrool.text)
-                    //       .then((value) {
-                    //     if (value["mesage"] == "create data sucsess") {
-                    //       print(value);
-
-                    //       Navigator.pushReplacementNamed(
-                    //           context, '/Kategoribarang');
-                    //       successcreated(context);
-                    //     } else {
-                    //       postfaild(context);
-                    //     }
-                    //   });
-                    // } else {
-                    //   emtyform(context);
-                    // }
                   },
                   child: Container(
                     padding: EdgeInsets.only(left: 20, right: 20),
@@ -205,8 +190,7 @@ class _OrderdatboardState extends State<Orderdatboard> {
                   height: Mediawidth / 7,
                   decoration: BoxDecoration(
                       image: DecorationImage(
-                          image:
-                              NetworkImage(d!.barang!.thumnails.toString()))),
+                          image: NetworkImage(d.barang!.thumnails.toString()))),
                 ),
                 Container(
                   margin: EdgeInsets.only(left: 2),
@@ -214,9 +198,9 @@ class _OrderdatboardState extends State<Orderdatboard> {
                 ),
                 InkWell(
                   onTap: () {
-                    updatestatus.updatestatusorder(0, d.id).then((value) {
-                      if (value["mesage"] == "update data sucsess") {
-                        flusbartop(context, "berhasil disetujui", Colors.green);
+                    deleteorder.deleteorders(d.id).then((value) {
+                      if (value["mesage"] == "delete data sucsess") {
+                        Navigator.pushReplacementNamed(context, "/disetui");
                       }
                     });
                   },
@@ -227,29 +211,6 @@ class _OrderdatboardState extends State<Orderdatboard> {
                     child: Center(
                       child: Text(
                         "batalkan",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                    decoration: BoxDecoration(
-                        color: Colors.black,
-                        borderRadius: BorderRadius.circular(5)),
-                  ),
-                ),
-                InkWell(
-                  onTap: () {
-                    updatestatus.updatestatusorder(3, d.id).then((value) {
-                      if (value["mesage"] == "update data sucsess") {
-                        flusbartop(context, "berhasil disetujui", Colors.green);
-                      }
-                    });
-                  },
-                  child: Container(
-                    width: Mediawidth / 7,
-                    // height: Mediaheight / 9,
-                    padding: EdgeInsets.only(top: 5, bottom: 5),
-                    child: Center(
-                      child: Text(
-                        "Setujui",
                         style: TextStyle(color: Colors.white),
                       ),
                     ),
@@ -269,7 +230,7 @@ class _OrderdatboardState extends State<Orderdatboard> {
   FutureBuilder<List<Dataorder>> futerofdata(
       double Mediawidth, double Mediaheight) {
     return FutureBuilder<List<Dataorder>>(
-      future: order.getorderbystatus(2),
+      future: order.getorderbystatus(3),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           //listviewbuild
@@ -351,10 +312,10 @@ class _OrderdatboardState extends State<Orderdatboard> {
                       ),
                       InkWell(
                         onTap: () {
-                          updatestatus.updatestatusorder(0, d.id).then((value) {
-                            if (value["mesage"] == "update data sucsess") {
-                              flusbartop(
-                                  context, "berhasil disetujui", Colors.green);
+                          deleteorder.deleteorders(d.id).then((value) {
+                            if (value["mesage"] == "delete data sucsess") {
+                              Navigator.pushReplacementNamed(
+                                  context, "/disetui");
                             }
                           });
                         },
@@ -373,30 +334,6 @@ class _OrderdatboardState extends State<Orderdatboard> {
                               borderRadius: BorderRadius.circular(5)),
                         ),
                       ),
-                      InkWell(
-                        onTap: () {
-                          updatestatus.updatestatusorder(3, d.id).then((value) {
-                            if (value["mesage"] == "update data sucsess") {
-                              flusbartop(
-                                  context, "berhasil disetujui", Colors.green);
-                            }
-                          });
-                        },
-                        child: Container(
-                          width: Mediawidth / 7,
-                          // height: Mediaheight / 9,
-                          padding: EdgeInsets.only(top: 5, bottom: 5),
-                          child: Center(
-                            child: Text(
-                              "Setujui",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ),
-                          decoration: BoxDecoration(
-                              color: Colors.black,
-                              borderRadius: BorderRadius.circular(5)),
-                        ),
-                      )
                     ],
                   ),
                 ),

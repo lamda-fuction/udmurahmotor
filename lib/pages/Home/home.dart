@@ -2,12 +2,13 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:get/get.dart';
 import 'package:udmurahmotor/FuctionHelper/appbar.dart';
-import 'package:udmurahmotor/pages/searchdelegate/searchdelegate.dart';
 
 import '../../model/getkategoribarang.dart';
 import '../../service/barang/getbarang.dart';
 import '../../service/kategori/kategoribarang.dart';
+import '../searchdelegate/searchPage.dart';
 import 'cardbarang.dart';
 import 'crosel.dart';
 
@@ -158,8 +159,12 @@ class _HomeState extends State<Home> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     InkWell(
-                      onTap: () =>
-                          showSearch(context: context, delegate: Search()),
+                      onTap: () {
+                        // Get.to(SearchPage());
+                        Get.toNamed("/search");
+                        // Navigator.pushNamed(context, "/search");
+                      },
+                      // showSearch(context: context, delegate: Search()),
                       child: Container(
                         width: Mediaquerywidth / 1.4,
                         height: Mediaqueryhight / 20,
@@ -227,7 +232,10 @@ class _HomeState extends State<Home> {
                     itemBuilder: (context, index) {
                       return InkWell(
                         onTap: () {
-                          Navigator.pushNamed(context, '/Kategori');
+                          Navigator.pushNamed(context, '/Kategori', arguments: {
+                            "id": kategoribarang[index].id,
+                            "namakategori": kategoribarang[index].namakategori
+                          });
                         },
                         child: Container(
                           margin: EdgeInsets.only(left: 5, right: 5),

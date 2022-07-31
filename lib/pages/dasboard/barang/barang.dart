@@ -25,7 +25,7 @@ class _BarangState extends State<Barang> {
   bool isloading = false;
 
   _getdatabarang() {
-    barang.getdatabarang(limit, offset).then((value) {
+    barang.getrealdatabarang(limit, offset).then((value) {
       if (value.mesage == "All Data") {
         value.data!.forEach((v) {
           setState(() {

@@ -5,7 +5,7 @@ import '../../model/searchModel.dart';
 
 class Searchserv {
   Future<Search> search(keyword) async {
-    var url = "endpoindud.devmee.tech/searchbarang?keyword=${keyword}";
+    var url = "https://endpoindud.devmee.tech/searchbarang?keyword=${keyword}";
     var get = await http.get(Uri.parse(url));
     if (get.statusCode == 200) {
       var decode = convert.jsonDecode(get.body);
